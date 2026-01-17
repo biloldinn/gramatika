@@ -269,26 +269,71 @@ async def cb_lang(call: CallbackQuery):
 
 @dp.message(Command("admin"))
 async def cmd_admin(message: Message):
-    txt = "🛠 <b>Admin</b>\n`/add lang|word|read|mean|gram|ex`\n`/broadcast Msg`"
-    await message.answer(txt, parse_mode=ParseMode.HTML)
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="📊 Statistika", callback_data="admin_stats")],
+        [InlineKeyboardButton(text="📢 Xabar yuborish", callback_data="admin_broadcast")],
+        [InlineKeyboardButton(text="➕ So'z qo'shish yordami", callback_data="admin_add_help")]
+    ])
+    await message.answer("🛠 <b>Admin Panel</b>\nTanlang:", reply_markup=kb, parse_mode=ParseMode.HTML)
+
+@dp.callback_query(F.data == "admin_stats")
+async def cb_admin_stats(call: CallbackQuery):
+    cur = get_cursor()
+    cur.execute("SELECT lang, COUNT(*) FROM word_library GROUP BY lang")
+    lib = cur.fetchall()
+    cur.execute("SELECT COUNT(*) FROM users")
+    users = cur.fetchone()[0]
+    
+    txt = f"👥 <b>Foydalanuvchilar:</b> {users}\n\n<b>Kutubxona:</b>\n"
+    for l, c in lib:
+        txt += f"- {l}: {c} ta so'z\n"
+    
+    await call.message.edit_text(txt, parse_mode=ParseMode.HTML, reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="⬅️ Orqaga", callback_data="admin_back")]
+    ]))
+
+@dp.callback_query(F.data == "admin_add_help")
+async def cb_add_help(call: CallbackQuery):
+    txt = ("➕ <b>So'z qo'shish formati:</b>\n\n"
+           "`/add til|so'z|o'qilishi|ma'nosi|grammatika|misol`\n\n"
+           "<b>Misol:</b>\n`/add ru|Книга|Kniga|Kitob|Noun|Я читаю книгу`\n\n"
+           "<i>Eslatma: 'grammatika' va 'misol' bo'limlarini bo'sh qoldirib, faqat 4 ta qismni yuborsa ham bo'ladi.</i>")
+    await call.message.edit_text(txt, parse_mode=ParseMode.HTML, reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="⬅️ Orqaga", callback_data="admin_back")]
+    ]))
+
+@dp.callback_query(F.data == "admin_back")
+async def cb_admin_back(call: CallbackQuery):
+    await cmd_admin(call.message)
+    await call.answer()
 
 @dp.message(Command("add"))
 async def cmd_add(message: Message):
     try:
-        parts = message.text.replace("/add", "").strip().split("|")
-        if len(parts) < 4: return await message.reply("Format error.")
+        content = message.text.replace("/add", "").strip()
+        if not content: return await message.reply("Format: til|so'z|o'qilishi|ma'nosi")
+        
+        parts = content.split("|")
+        if len(parts) < 4: return await message.reply("Kamida 4 ta qism bo'lishi kerak: til|so'z|o'qishi|ma'no")
+        
         l, w, r, m = parts[0].strip(), parts[1].strip(), parts[2].strip(), parts[3].strip()
         g = parts[4].strip() if len(parts)>4 else ""
         e = parts[5].strip() if len(parts)>5 else ""
         
         cur=get_cursor()
         cur.execute("SELECT MAX(rank) FROM word_library WHERE lang=?", (l,))
-        rank = (cur.fetchone()[0] or 0) + 1
-        cur.execute("INSERT INTO word_library (word, lang, reading, meaning, grammar, example, rank) VALUES (?,?,?,?,?,?,?)",
+        res = cur.fetchone()
+        rank = (res[0] or 0) + 1 if res else 1
+        
+        cur.execute("""INSERT OR REPLACE INTO word_library 
+                    (word, lang, reading, meaning, grammar, example, rank) 
+                    VALUES (?,?,?,?,?,?,?)""",
                     (w,l,r,m,g,e,rank))
         db.commit()
-        await message.reply(f"✅ Saved: {w}")
-    except Exception as x: await message.reply(f"Err: {x}")
+        await message.reply(f"✅ <b>Saqlandi:</b> {w} ({l})", parse_mode=ParseMode.HTML)
+    except Exception as x: 
+        logger.error(f"Add error: {x}")
+        await message.reply(f"❌ Xato: {x}")
 
 @dp.message(Command("broadcast"))
 async def cmd_bd(message: Message):
