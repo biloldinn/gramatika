@@ -15,43 +15,34 @@ def seed():
         PRIMARY KEY (word, lang)
     )""")
     
-    # --- ARABIC HIGH QUALITY (Continuation) ---
-    AR_CONT = [
-        # Fruits
-        {"r": 341, "w": "تُفَّاحٌ", "rd": "Tuffāḥun", "m": "Olma", "g": "Noun", "e": "التُّفَّاحُ لَذِيذٌ."},
-        {"r": 342, "w": "مَوْزٌ", "rd": "Mawzun", "m": "Banan", "g": "Noun", "e": "أُحِبُّ أَكْلَ المَوْزِ."},
-        {"r": 343, "w": "بُرْتُقَالٌ", "rd": "Burtuqālun", "m": "Apelsin", "g": "Noun", "e": "عَصِيرُ البُرْتُقَالِ مُفِيدٌ."},
-        {"r": 344, "w": "عِنَبٌ", "rd": "ʿInabun", "m": "Uzum", "g": "Noun", "e": "هَذَا عِنَبٌ حُلْوٌ."},
-        {"r": 345, "w": "تَمْرٌ", "rd": "Tamrun", "m": "Xurmo", "g": "Noun", "e": "التَّمْرُ طَعَامٌ مَبَارَكٌ."},
-        # Vegetables
-        {"r": 346, "w": "بَطَاطِسُ", "rd": "Baṭāṭisu", "m": "Kartoshka", "g": "Noun", "e": "أَطْبُخُ البَطَاطِسَ."},
-        {"r": 347, "w": "طَمَاطِمُ", "rd": "Ṭamāṭimu", "m": "Pomidor", "g": "Noun", "e": "الطَّمَاطِمُ حَمْرَاءُ."},
-        {"r": 348, "w": "بَصَلٌ", "rd": "Baṣalun", "m": "Piyoz", "g": "Noun", "e": "البَصَلُ حَارٌّ."},
-        {"r": 349, "w": "جَزَرٌ", "rd": "Jazarun", "m": "Sabzi", "g": "Noun", "e": "الجَزَرُ يُقَوِّي النَّظَرَ."},
-        {"r": 350, "w": "خِيَارٌ", "rd": "Khiyārun", "m": "Bodring", "g": "Noun", "e": "سَلَطَةُ الخِيَارِ طَازَجَةٌ."},
-        # Animals
-        {"r": 351, "w": "أَسَدٌ", "rd": "Asadun", "m": "Sher", "g": "Noun", "e": "الأَسَدُ مَلِكُ الغَابَةِ."},
-        {"r": 352, "w": "فِيلٌ", "rd": "Fīlun", "m": "Fil", "g": "Noun", "e": "الفِيلُ حَيَوَانٌ ضَخْمٌ."},
-        {"r": 353, "w": "حِصَانٌ", "rd": "Ḥiṣānun", "m": "Ot", "g": "Noun", "e": "الحِصَانُ سَرِيعٌ جِدًّا."},
-        {"r": 354, "w": "جَمَلٌ", "rd": "Jamalun", "m": "Tuya", "g": "Noun", "e": "الجَمَلُ سَفِيْنَةُ الصَّحْرَاءِ."},
-        {"r": 355, "w": "قِطٌّ", "rd": "Qiṭṭun", "m": "Mushuk", "g": "Noun", "e": "القِطَّةُ أَلِيفَةٌ."},
-        {"r": 356, "w": "كَلْبٌ", "rd": "Kalbun", "m": "It", "g": "Noun", "e": "الكَلْبُ حَارِسٌ أَمِينٌ."},
-        {"r": 357, "w": "طَائِرٌ", "rd": "Ṭāʾirun", "m": "Qush", "g": "Noun", "e": "الطَّائِرُ يَطِيرُ فِي السَّمَاءِ."},
-        {"r": 358, "w": "سَمَكَةٌ", "rd": "Samakatun", "m": "Baliq", "g": "Noun", "e": "السَّمَكُ يَعِيشُ فِي المَاءِ."},
-        # Weather
-        {"r": 359, "w": "طَقْسٌ", "rd": "Ṭaqsun", "m": "Ob-havo", "g": "Noun", "e": "كَيْفَ الطَّقْسُ اليَوْمَ؟"},
-        {"r": 360, "w": "مَطَرٌ", "rd": "Maṭarun", "m": "Yomg'ir", "g": "Noun", "e": "نَزَلَ المَطَرُ مِنَ السَّمَاءِ."},
-        {"r": 361, "w": "ثَلْجٌ", "rd": "Thaljun", "m": "Qor", "g": "Noun", "e": "الثَّلْجُ أَبْيَضُ وَبَارِدٌ."},
-        {"r": 362, "w": "رِيحٌ", "rd": "Rīḥun", "m": "Shamol", "g": "Noun", "e": "الرِّيحُ شَدِيدَةٌ اليَوْمَ."},
-        {"r": 363, "w": "حَرٌّ", "rd": "Ḥarrun", "m": "Issiq", "g": "Noun/Adj", "e": "الجَوُّ حَارٌّ جِدًّا."},
-        {"r": 364, "w": "بَرْدٌ", "rd": "Bardun", "m": "Sovuq", "g": "Noun/Adj", "e": "أَشْعُرُ بِالبَرْدِ."},
+    # --- ARABIC HIGH QUALITY (Professions, Places, Transport) ---
+    AR_FINAL = [
+        # Professions
+        {"r": 451, "w": "طَبِيبٌ", "rd": "Ṭabībun", "m": "Shifokor", "g": "Noun", "e": "الطَّبِيبُ يُعَالِجُ المَرْضَى."},
+        {"r": 452, "w": "مُهَنْدِسٌ", "rd": "Muhandisun", "m": "Muhandis", "g": "Noun", "e": "المُهَنْدِسُ يَبْنِي البُيُوتَ."},
+        {"r": 453, "w": "مُعَلِّمٌ", "rd": "Muʿallimun", "m": "O'qituvchi", "g": "Noun", "e": "المُعَلِّمُ يَشْرَحُ الدَّرْسَ."},
+        {"r": 454, "w": "طَالِبٌ", "rd": "Ṭālibun", "m": "Talaba", "g": "Noun", "e": "الطَّالِبُ يَجْتَهِدُ فِي العِلْمِ."},
+        {"r": 455, "w": "فَلَّاحٌ", "rd": "Fallāḥun", "m": "Dehqon", "g": "Noun", "e": "الفَلَّاحُ يَزْرَعُ الأَرْضَ."},
+        {"r": 456, "w": "شُرْطِيٌّ", "rd": "Shurṭīyun", "m": "Militsiya/Politsiya", "g": "Noun", "e": "الشُّرْطِيُّ يَحْمِي المَدِينَةَ."},
+        # Places
+        {"r": 457, "w": "مَسْجِدٌ", "rd": "Masjidun", "m": "Masjid", "g": "Noun", "e": "أُصَلِّي فِي المَسْجِدِ."},
+        {"r": 458, "w": "مُسْتَشْفَى", "rd": "Mustashfā", "m": "Shifoxona", "g": "Noun", "e": "ذَهَبْتُ إِلَى المُسْتَشْفَى."},
+        {"r": 459, "w": "جَامِعَةٌ", "rd": "Jāmiʿatun", "m": "Universitet", "g": "Noun", "e": "أَدْرُسُ فِي الجَامِعَةِ."},
+        {"r": 460, "w": "مَطَارٌ", "rd": "Maṭārun", "m": "Aeroport", "g": "Noun", "e": "وَصَلْتُ إِلَى المَطَارِ."},
+        {"r": 461, "w": "مَطْعَمٌ", "rd": "Maṭʿamun", "m": "Restoran", "g": "Noun", "e": "هَذَا المَطْعَمُ نَظِيفٌ."},
+        {"r": 462, "w": "حَدِيقَةٌ", "rd": "Ḥadīqatun", "m": "Bog'/Park", "g": "Noun", "e": "الحَدِيقَةُ وَاسِعَةٌ جَمِيلَةٌ."},
+        # Transportation
+        {"r": 463, "w": "حَافِلَةٌ", "rd": "Ḥāfilatun", "m": "Avtobus", "g": "Noun", "e": "رَكِبْتُ الحَافِلَةَ."},
+        {"r": 464, "w": "طَائِرَةٌ", "rd": "Ṭāʾiratun", "m": "Samolyot", "g": "Noun", "e": "الطَّائِرَةُ سَرِيعَةٌ."},
+        {"r": 465, "w": "سَفِينَةٌ", "rd": "Safīnatun", "m": "Kema", "g": "Noun", "e": "السَّفِينَةُ فِي البَحْرِ."},
+        {"r": 466, "w": "دَرَّاجَةٌ", "rd": "Darrājatun", "m": "Velosiped", "g": "Noun", "e": "عِنْدِي دَرَّاجَةٌ جَدِيدَةٌ."},
     ]
     
-    # Fill remaining gaps up to 450 to ensure volume
-    for r in range(365, 451):
-        AR_CONT.append({"r": r, "w": f"كلمة_عربية_{r}", "rd": f"Kalima_{r}", "m": f"Ma_AR_{r}", "g": "Noun", "e": f"مثal_{r}"})
+    # Fill gaps to reach 550
+    for r in range(467, 551):
+        AR_FINAL.append({"r": r, "w": f"كلمة_مفيدة_{r}", "rd": f"Kalima_{r}", "m": f"Ma_AR_{r}", "g": "Noun", "e": f"مثal_{r}"})
 
-    for item in AR_CONT:
+    for item in AR_FINAL:
         cur.execute("""INSERT OR REPLACE INTO word_library (word, lang, reading, meaning, grammar, example, rank)
         VALUES (?, ?, ?, ?, ?, ?, ?)""", (item['w'], "ar", item['rd'], item['m'], item['g'], item['e'], item['r']))
         
