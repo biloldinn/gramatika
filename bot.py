@@ -114,14 +114,26 @@ def tts(text: str, lang: str) -> str:
 
 async def get_next_curriculum_words(user_id: int, lang: str, count: int = 5):
     cur = get_cursor()
-    query = """
+    # Also exclude words currently in current_lesson_words session
+    cur.execute("SELECT current_lesson_words FROM users WHERE user_id = ?", (user_id,))
+    res = cur.fetchone()
+    current_words = []
+    if res and res[0]:
+        try:
+            current_words = [w['word'] for w in json.loads(res[0])]
+        except: pass
+    
+    placeholders = ",".join(["?"] * len(current_words)) if current_words else "NULL"
+    query = f"""
     SELECT * FROM word_library 
     WHERE lang = ? 
     AND word NOT IN (SELECT word FROM progress WHERE user_id = ? AND lang = ?)
+    AND word NOT IN ({placeholders})
     ORDER BY rank ASC
     LIMIT ?
     """
-    cur.execute(query, (lang, user_id, lang, count))
+    params = [lang, user_id, lang] + current_words + [count]
+    cur.execute(query, params)
     return [{"word": r[0], "reading": r[2], "meaning": r[3], "grammar": r[4], "example": r[5]} for r in cur.fetchall()]
 
 # ====== INTERACTIVE FLOW ======
@@ -230,7 +242,7 @@ async def check_pending_tests():
                 is_correct = "1" if opt == target['meaning'] else "0"
                 kb.append([InlineKeyboardButton(text=opt, callback_data=f"test:{is_correct}")])
             
-            text = f"⏰ <b>Tekshiruv Vaqti!</b>\n\nSo'zning tarjimasini toping:\n👉 <b>{target['word']}</b>"
+            text = f"⏰ <b>Bilimni sinash vaqti! (O'tilgan darsdan)</b>\n\nSo'zning tarjimasini toping:\n👉 <b>{target['word']}</b>"
             await bot.send_message(uid, text, reply_markup=InlineKeyboardMarkup(inline_keyboard=kb), parse_mode=ParseMode.HTML)
             
         except Exception as e:
