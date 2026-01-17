@@ -324,5 +324,15 @@ async def main():
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
-    try: asyncio.run(main())
-    except: pass
+    try:
+        # Auto-seed database on startup
+        try:
+            import seed_data
+            seed_data.seed()
+            logger.info("Database seeded successfully.")
+        except Exception as e:
+            logger.error(f"Seeding failed: {e}")
+
+        asyncio.run(main())
+    except:
+        pass
