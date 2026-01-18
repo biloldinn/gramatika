@@ -53,6 +53,16 @@ def init_db():
         current_word_index INTEGER DEFAULT 0
     )""")
     
+    # Schema Migrations (Ensure columns exist for old DBs)
+    try: cur.execute("ALTER TABLE users ADD COLUMN current_lesson_words JSON DEFAULT '[]'")
+    except: pass
+    try: cur.execute("ALTER TABLE users ADD COLUMN current_word_index INTEGER DEFAULT 0")
+    except: pass
+    try: cur.execute("ALTER TABLE users ADD COLUMN lessons_count INTEGER DEFAULT 0")
+    except: pass
+    try: cur.execute("ALTER TABLE users ADD COLUMN learned INTEGER DEFAULT 0")
+    except: pass
+    
     cur.execute("""CREATE TABLE IF NOT EXISTS word_library(
         word TEXT,
         lang TEXT,

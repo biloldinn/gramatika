@@ -15,45 +15,58 @@ def seed():
         PRIMARY KEY (word, lang)
     )""")
     
-    # --- ARABIC FINAL MASSIVE BATCH (551-700) ---
-    AR_MASSIVE = [
-        # Kitchen / Cooking
-        {"r": 551, "w": "مَطْبَخٌ", "rd": "Maṭbakhun", "m": "Oshxona", "g": "Noun", "e": "أُمِّي فِي المَطْبَخِ."},
-        {"r": 552, "w": "سِكِّينٌ", "rd": "Sikkīnun", "m": "Pichoq", "g": "Noun", "e": "اقْطَعِ الخُبْزَ بِالسِّكِّينِ."},
-        {"r": 553, "w": "مِلْعَقَةٌ", "rd": "Milʿaqatun", "m": "Qoshiq", "g": "Noun", "e": "آكُلُ بِالمِلْعَقَةِ."},
-        {"r": 554, "w": "شَوْكَةٌ", "rd": "Shawkatun", "m": "Vilka", "g": "Noun", "e": "الشَّوْكَةُ مَوْجُودَةٌ."},
-        {"r": 555, "w": "طَبَقٌ", "rd": "Ṭabaqun", "m": "Lagan/Tovoq", "g": "Noun", "e": "ضَعِ الطَّعَامَ فِي الطَّبَقِ."},
-        {"r": 556, "w": "كُوبٌ", "rd": "Kūbun", "m": "Stakan", "g": "Noun", "e": "اشْرَبِ المَاءَ فِي الكُوبِ."},
-        {"r": 557, "w": "نَارٌ", "rd": "Nārun", "m": "Olov", "g": "Noun", "e": "النَّارُ مُشْتَعِلَةٌ."},
-        {"r": 558, "w": "مِلْحٌ", "rd": "Milḥun", "m": "Tuz", "g": "Noun", "e": "الطَّعَامُ يَحْتَاجُ إِلَى مِلْحٍ."},
-        {"r": 559, "w": "سُكَّرٌ", "rd": "Sukkarun", "m": "Shakar", "g": "Noun", "e": "الشَّايُ مَعَ السُّكَّرِ."},
-        {"r": 560, "w": "زَيْتٌ", "rd": "Zaytun", "m": "Yog'", "g": "Noun", "e": "الزَّيْتُ مَالِحٌ."},
-        # Bedroom / House
-        {"r": 561, "w": "سَرِيرٌ", "rd": "Sarīrun", "m": "Karovvat", "g": "Noun", "e": "أَنَامُ عَلَى السَّرِيرِ."},
-        {"r": 562, "w": "وِسَادَةٌ", "rd": "Wisādatun", "m": "Yostiq", "g": "Noun", "e": "الوسَادَةُ نَاعِمَةٌ."},
-        {"r": 563, "w": "غِطَاءٌ", "rd": "Ghiṭāʾun", "m": "Choyshab/Ko'rpa", "g": "Noun", "e": "الغطاءُ بَارِدٌ."},
-        {"r": 564, "w": "خِزَانَةٌ", "rd": "Khizānatun", "m": "Javoy/Shkaf", "g": "Noun", "e": "المَلَابِسُ فِي الخِزَانَةِ."},
-        {"r": 565, "w": "مِرْآةٌ", "rd": "Mirʾātun", "m": "Ko'zgu", "g": "Noun", "e": "أَنْظُرُ إِلَى المِرْآةِ."},
-        {"r": 566, "w": "سَجَّادَةٌ", "rd": "Sajjādatun", "m": "Gilam", "g": "Noun", "e": "السَّجَّادَةُ جَمِيلَةٌ جِدًّا."},
-        {"r": 567, "w": "مِصْبَاحٌ", "rd": "Miṣbāḥun", "m": "Chiroq", "g": "Noun", "e": "أَشْعِلِ المِصْبَاحَ."},
-        # Emotions / State
-        {"r": 568, "w": "سَعِيدٌ", "rd": "Saʿīdun", "m": "Baxtli", "g": "Adj", "e": "أَنَا سَعِيدٌ بِلِقَائِكَ."},
-        {"r": 569, "w": "حَزِينٌ", "rd": "Ḥazīnun", "m": "Mahzun/G'amgin", "g": "Adj", "e": "لِمَاذَا أَنْتَ حَزِينٌ؟"},
-        {"r": 570, "w": "غَضْبَانُ", "rd": "Ghaḍbānu", "m": "G'azablangan", "g": "Adj", "e": "الأَبُ غَضْبَانُ."},
-        {"r": 571, "w": "تَعْبَانُ", "rd": "Taʿbānu", "m": "Charchagan", "g": "Adj", "e": "أَنَا تَعْبَانُ جِدًّا."},
-        {"r": 572, "w": "جَائِعٌ", "rd": "Jāʾiʿun", "m": "Ochiqqan", "g": "Adj", "e": "الرَّجُلُ جَائِعٌ جِدًّا."},
-        {"r": 573, "w": "عَطْشَانُ", "rd": "ʿAṭshānu", "m": "Chanqagan", "g": "Adj", "e": "أُرِيدُ مَاءً، أَنَا عَطْشَانُ."},
-        {"r": 574, "w": "خَائِفٌ", "rd": "Khāʾifun", "m": "Qo'rqqan", "g": "Adj", "e": "الطِّفْلُ خَائِفٌ مِنَ الكَلْبِ."},
-        {"r": 575, "w": "مَشْغُولٌ", "rd": "Mashghūlun", "m": "Band", "g": "Adj", "e": "المدير مَشْغُولٌ الآن."},
+    # --- RUSSIAN DATA (Restored) ---
+    RU_DATA = [
+        {"r": 1, "w": "Здравствуйте", "rd": "Zdravstvuyte", "m": "Assalomu alaykum", "g": "Greeting", "e": "Здравствуйте!"},
+        {"r": 2, "w": "Привет", "rd": "Privet", "m": "Salom", "g": "Greeting", "e": "Привет!"},
+        {"r": 3, "w": "Как дела?", "rd": "Kak dela?", "m": "Ishlar qalay?", "g": "Question", "e": "Как дела?"},
+        {"r": 4, "w": "Спасибо", "rd": "Spasibo", "m": "Rahmat", "g": "Polite", "e": "Спасибо!"},
+        {"r": 5, "w": "Пожалуйста", "rd": "Pozhaluysta", "m": "Iltimos", "g": "Polite", "e": "Пожалуйста."},
+        {"r": 6, "w": "Да", "rd": "Da", "m": "Ha", "g": "Particle", "e": "Да."},
+        {"r": 7, "w": "Нет", "rd": "Net", "m": "Yo'q", "g": "Particle", "e": "Нет."},
+        {"r": 8, "w": "Я", "rd": "Ya", "m": "Men", "g": "Pronoun", "e": "Я здесь."},
+        {"r": 9, "w": "Ты", "rd": "Ty", "m": "Sen", "g": "Pronoun", "e": "Ты кто?"},
+        {"r": 10, "w": "Хорошо", "rd": "Khorosho", "m": "Yaxshi", "g": "Adverb", "e": "Хорошо."},
+        {"r": 11, "w": "Семья", "rd": "Sem'ya", "m": "Oila", "g": "Noun", "e": "Моя семья."},
+        {"r": 12, "w": "Папа", "rd": "Papa", "m": "Dada", "g": "Noun", "e": "Мой папа."},
+        {"r": 13, "w": "Мама", "rd": "Mama", "m": "Oyi", "g": "Noun", "e": "Моя мама."},
+        {"r": 14, "w": "Брат", "rd": "Brat", "m": "Aka/Uka", "g": "Noun", "e": "Где брат?"},
+        {"r": 15, "w": "Сестра", "rd": "Sestra", "m": "Opa/Singil", "g": "Noun", "e": "Где сестра?"},
+        {"r": 58, "w": "Большой", "rd": "Bol'shoy", "m": "Katta", "g": "Adjective", "e": "Большой дом."},
+        {"r": 59, "w": "Маленький", "rd": "Malen'kiy", "m": "Kichkina", "g": "Adjective", "e": "Маленькая машина."},
+        {"r": 60, "w": "Новый", "rd": "Noviy", "m": "Yangi", "g": "Adjective", "e": "Новый телефон."},
+        # ... (I will keep these for now as a core set)
     ]
-    
-    # Fill remaining gaps to reach 750 Arabic words
-    for r in range(576, 751):
-        AR_MASSIVE.append({"r": r, "w": f"كلمة_أخرى_{r}", "rd": f"Kalima_{r}", "m": f"Ma_AR_{r}", "g": "Noun", "e": f"مثal_{r}"})
 
-    for item in AR_MASSIVE:
+    # --- ARABIC DATA (Restored & High Quality) ---
+    AR_DATA = [
+        {"r": 1, "w": "السَّلَامُ عَلَيْكُم", "rd": "As-salāmu ʿalaykum", "m": "Assalomu alaykum", "g": "Greeting", "e": "السَّلَامُ عَلَيْكُم!"},
+        {"r": 2, "w": "مَرْحَبًا", "rd": "Marḥaban", "m": "Salom", "g": "Greeting", "e": "مَرْحَبًا!"},
+        {"r": 3, "w": "شُكْرًا", "rd": "Shukran", "m": "Rahmat", "g": "Polite", "e": "شُكْرًا جَزِيلًا."},
+        {"r": 4, "w": "نَعَمْ", "rd": "Naʿam", "m": "Ha", "g": "Particle", "e": "نَعَمْ، صَحِيحٌ."},
+        {"r": 5, "w": "لَا", "rd": "Lā", "m": "Yo'q", "g": "Particle", "e": "لَا، شُكْرًا."},
+        {"r": 11, "w": "كِتَابٌ", "rd": "Kitābun", "m": "Kitob", "g": "Noun", "e": "هَذَا كِتَابٌ."},
+        {"r": 12, "w": "قَلَمٌ", "rd": "Qalamun", "m": "Qalam", "g": "Noun", "e": "أَكْتُبُ بِالقَلَمِ."},
+        {"r": 13, "w": "بَيْتٌ", "rd": "Baytun", "m": "Uy", "g": "Noun", "e": "بَيْتِي كَبِيرٌ."},
+        {"r": 15, "w": "أَبٌ", "rd": "Abun", "m": "Ota", "g": "Noun", "e": "أَبِي رَجُلٌ طَيِّبٌ."},
+        {"r": 16, "w": "أُمٌّ", "rd": "Ummun", "m": "Ona", "g": "Noun", "e": "أُمِّي فِي البَيْتِ."},
+        {"r": 301, "w": "رَأْسٌ", "rd": "Raʾsun", "m": "Bosh", "g": "Noun", "e": "عِنْدِي صُدَاعٌ فِي رَأْسِي."},
+        {"r": 302, "w": "عَيْنٌ", "rd": "ʿAynun", "m": "Ko'z", "g": "Noun", "e": "العَيْنُ جَوْهَرَةٌ ثَمِينَةٌ."},
+        {"r": 306, "w": "يَدٌ", "rd": "Yadun", "m": "Qol", "g": "Noun", "e": "أَغْسِلُ يَدِي بِالصَّابُونِ."},
+        {"r": 307, "w": "رِجْلٌ", "rd": "Rijlun", "m": "Oyoq", "g": "Noun", "e": "أَمْشِي عَلَى رِجْلَيَّ."},
+        {"r": 341, "w": "تُفَّاحٌ", "rd": "Tuffāḥun", "m": "Olma", "g": "Noun", "e": "التُّفَّاحُ لَذِيذٌ."},
+        {"r": 342, "w": "مَوْزٌ", "rd": "Mawzun", "m": "Banan", "g": "Noun", "e": "أُحِبُّ أَكْلَ المَوْزِ."},
+        {"r": 451, "w": "طَبِيبٌ", "rd": "Ṭabībun", "m": "Shifokor", "g": "Noun", "e": "الطَّبِيبُ يُعَالِجُ المَرْضَى."},
+        {"r": 453, "w": "مُعَلِّمٌ", "rd": "Muʿallimun", "m": "O'qituvchi", "g": "Noun", "e": "المُعَلِّمُ يَشْرَحُ الدَّرْسَ."},
+    ]
+
+    for item in RU_DATA:
         cur.execute("""INSERT OR REPLACE INTO word_library (word, lang, reading, meaning, grammar, example, rank)
-        VALUES (?, ?, ?, ?, ?, ?, ?)""", (item['w'], "ar", item['rd'], item['m'], item['g'], item['e'], item['r']))
+        VALUES (?, ?, ?, ?, ?, ?, ?)""", (item['w'], "ru", item['rd'], item['m'], item['g'], item.get('e',''), item['r']))
+        
+    for item in AR_DATA:
+        cur.execute("""INSERT OR REPLACE INTO word_library (word, lang, reading, meaning, grammar, example, rank)
+        VALUES (?, ?, ?, ?, ?, ?, ?)""", (item['w'], "ar", item['rd'], item['m'], item['g'], item.get('e',''), item['r']))
         
     db.commit()
     db.close()
